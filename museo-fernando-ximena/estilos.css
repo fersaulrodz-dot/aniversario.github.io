@@ -1,0 +1,683 @@
+:root {
+  /* Paleta inspirada en terciopelo borgoña, rosas oscuras y luz de velas doradas */
+  --burgundy-dark: #0a0306;
+  --burgundy-deep: #1b0711;
+  --burgundy-velvet: #380d22;
+  --plum-dark: #230c24;
+  --rose-purple: #6b284d;
+  --rose-accent: #9e3d6f;
+  --gold-warm: #d4af37;
+  --gold-light: #f3e5c8;
+  --gold-glow: rgba(212, 175, 55, 0.35);
+  --ivory: #fcf8f2;
+  --muted-rose: #bca0ad;
+  --line-gold: rgba(212, 175, 55, 0.2);
+  --glass-dark: rgba(15, 5, 11, 0.82);
+  
+  --radius: 16px;
+  --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--burgundy-dark);
+  color-scheme: dark;
+}
+
+body {
+  background: 
+    radial-gradient(circle at 15% 20%, rgba(107, 40, 77, 0.25), transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(56, 13, 34, 0.35), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05), transparent 60%),
+    linear-gradient(180deg, var(--burgundy-dark) 0%, #12030a 100%);
+  color: var(--ivory);
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.locked { overflow: hidden; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Efecto Mágico de Textura Elegante */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ==================== INTRO ==================== */
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: radial-gradient(circle at center, var(--burgundy-velvet) 0%, var(--burgundy-dark) 90%);
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s ease, transform 1.2s ease;
+}
+
+#intro.hide {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.05);
+}
+
+.intro-inner {
+  max-width: 650px;
+  animation: introFade 1.8s ease-out;
+}
+
+@keyframes introFade {
+  from { opacity: 0; transform: translateY(25px); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.intro-label, .small-label {
+  color: var(--gold-light);
+  font-size: 0.75rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  display: block;
+  text-shadow: 0 0 10px var(--gold-glow);
+}
+
+.intro-date {
+  margin-top: 1rem;
+  color: var(--muted-rose);
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+}
+
+.intro-names {
+  margin-top: 2rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(3.8rem, 12vw, 8.5rem);
+  font-weight: 300;
+  line-height: 0.85;
+  background: linear-gradient(135deg, #fff 30%, var(--gold-light) 70%, var(--rose-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.intro-and {
+  display: block;
+  color: var(--rose-accent);
+  font-style: italic;
+  font-size: 0.55em;
+  margin: 0.4rem 0;
+  -webkit-text-fill-color: initial;
+}
+
+.intro-description {
+  margin: 2.5rem auto 0;
+  color: var(--muted-rose);
+  font-size: 0.9rem;
+  line-height: 2;
+  font-weight: 300;
+}
+
+.enter-button {
+  margin-top: 3rem;
+  padding: 1.2rem 3rem;
+  border: 1px solid var(--gold-warm);
+  border-radius: 50px;
+  background: rgba(56, 13, 34, 0.4);
+  color: var(--gold-light);
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  box-shadow: 0 0 20px rgba(56, 13, 34, 0.6), inset 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
+.enter-button::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+  transition: 0.8s;
+}
+
+.enter-button:hover::before {
+  left: 100%;
+}
+
+.enter-button:hover {
+  background: var(--gold-warm);
+  color: var(--burgundy-dark);
+  box-shadow: 0 10px 35px var(--gold-glow);
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* ==================== APP & HERO ==================== */
+#app { display: none; opacity: 0; transition: opacity 1.2s ease; }
+#app.visible { display: block; opacity: 1; }
+
+.music-control {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 5000;
+}
+
+.music-button {
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: 1px solid var(--line-gold);
+  background: var(--glass-dark);
+  backdrop-filter: blur(12px);
+  color: var(--gold-light);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-smooth);
+}
+
+.music-button.playing {
+  border-color: var(--gold-warm);
+  box-shadow: 0 0 15px var(--gold-glow);
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  position: relative;
+}
+
+.hero-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(3.8rem, 13vw, 9.5rem);
+  font-weight: 300;
+  line-height: 0.9;
+  margin-top: 1.5rem;
+}
+
+.hero-title .italic {
+  display: block;
+  color: var(--rose-accent);
+  font-style: italic;
+  text-shadow: 0 0 20px rgba(158, 61, 111, 0.4);
+}
+
+.hero-description {
+  max-width: 500px;
+  margin: 2.5rem auto 0;
+  color: var(--muted-rose);
+  font-size: 0.9rem;
+  line-height: 1.9;
+}
+
+.scroll-hint {
+  margin-top: 4rem;
+  color: var(--gold-light);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: candleGlow 2.5s infinite alternate;
+}
+
+@keyframes candleGlow {
+  0% { transform: translateY(0); opacity: 0.6; text-shadow: 0 0 5px var(--gold-glow); }
+  100% { transform: translateY(10px); opacity: 1; text-shadow: 0 0 18px var(--gold-warm); }
+}
+
+/* ==================== TIMELINE ==================== */
+.section-header {
+  text-align: center;
+  padding: 6rem 1.5rem 3rem;
+}
+
+.section-header h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1;
+  margin-top: 1rem;
+}
+
+.section-header p {
+  color: var(--muted-rose);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  margin-top: 1.5rem;
+}
+
+.timeline {
+  position: relative;
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 8rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--line-gold) 15%, var(--line-gold) 85%, transparent);
+  transform: translateX(-50%);
+}
+
+.timeline-progress {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 2px;
+  background: linear-gradient(180deg, var(--gold-warm), var(--rose-accent));
+  transform: translateX(-50%);
+  transition: height 0.1s linear;
+  box-shadow: 0 0 15px var(--gold-warm);
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 2.5rem 3rem;
+  opacity: 0;
+  transform: translateY(50px) scale(0.95);
+  transition: var(--transition-smooth);
+}
+
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Se mantiene la estructura de izquierda y derecha fija en cualquier pantalla */
+.timeline-item.left { left: 0; text-align: right; }
+.timeline-item.right { left: 50%; text-align: left; }
+
+.timeline-dot {
+  position: absolute;
+  top: 3.5rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--burgundy-dark);
+  border: 1.5px solid var(--gold-warm);
+  z-index: 2;
+  transition: var(--transition-bounce);
+}
+
+.timeline-item.left .timeline-dot { right: -7px; }
+.timeline-item.right .timeline-dot { left: -7px; }
+
+.timeline-item.visible .timeline-dot {
+  background: var(--gold-light);
+  box-shadow: 0 0 20px var(--gold-warm);
+}
+
+/* ==================== TARJETAS DE MESES ==================== */
+.month-card {
+  position: relative;
+  min-height: 340px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-gold);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+.month-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, var(--burgundy-dark) 0%, rgba(27, 7, 17, 0.4) 60%, rgba(10, 3, 6, 0.2) 100%);
+  transition: var(--transition-smooth);
+}
+
+.month-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--gold-warm);
+  box-shadow: 0 25px 50px rgba(56, 13, 34, 0.5), 0 0 20px var(--gold-glow);
+}
+
+.month-card:hover::before {
+  background: linear-gradient(0deg, var(--burgundy-dark) 10%, rgba(107, 40, 77, 0.3) 100%);
+}
+
+.month-content {
+  position: absolute;
+  inset: 0;
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 2;
+}
+
+.month-number {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.3rem;
+  color: var(--gold-light);
+  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.month-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.6rem;
+  font-weight: 300;
+  line-height: 0.95;
+}
+
+.month-tag {
+  color: var(--rose-accent);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 0.8rem;
+  font-weight: 500;
+}
+
+.month-open {
+  margin-top: 1.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0.8;
+  transition: var(--transition-smooth);
+}
+
+.month-card:hover .month-open {
+  opacity: 1;
+  transform: translateX(6px);
+  text-shadow: 0 0 8px var(--gold-glow);
+}
+
+/* ==================== FINAL ==================== */
+.final {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 1.5rem;
+  background: radial-gradient(circle at center, var(--burgundy-velvet) 0%, var(--burgundy-dark) 100%);
+}
+
+.final-inner { max-width: 700px; }
+
+.final h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(3.2rem, 10vw, 6.5rem);
+  font-weight: 300;
+  line-height: 0.9;
+  margin-top: 1rem;
+}
+
+.final-subtitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--rose-accent);
+  margin-top: 1rem;
+}
+
+.final-letter {
+  margin-top: 3.5rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.35rem;
+  line-height: 1.9;
+  color: var(--ivory);
+  white-space: pre-line;
+  padding: 2rem;
+  border-left: 1px solid var(--gold-warm);
+  border-right: 1px solid var(--gold-warm);
+  background: rgba(27, 7, 17, 0.3);
+  border-radius: var(--radius);
+}
+
+.final-signature {
+  margin-top: 2.5rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.6rem;
+  color: var(--gold-light);
+}
+
+/* ==================== SALA / HABITACIÓN ==================== */
+#room {
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  background: var(--burgundy-dark);
+  overflow-y: auto;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#room.open { 
+  display: block; 
+  opacity: 1;
+}
+
+.room-close {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 9000;
+  padding: 12px 24px;
+  border-radius: 30px;
+  background: var(--glass-dark);
+  border: 1px solid var(--line-gold);
+  backdrop-filter: blur(12px);
+  color: var(--gold-light);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: var(--transition-smooth);
+}
+
+.room-close:hover {
+  background: var(--gold-warm);
+  color: var(--burgundy-dark);
+}
+
+.room-header {
+  min-height: 65vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+.room-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, var(--burgundy-dark) 0%, rgba(10, 3, 6, 0.6) 60%, rgba(10, 3, 6, 0.3) 100%);
+}
+
+.room-header-content {
+  position: relative;
+  z-index: 2;
+  max-width: 850px;
+  margin: 0 auto;
+  animation: roomHeaderIn 0.8s ease-out;
+}
+
+@keyframes roomHeaderIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.room-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(3.2rem, 10vw, 6.5rem);
+  font-weight: 300;
+  line-height: 0.9;
+}
+
+.room-story {
+  margin-top: 1.8rem;
+  color: var(--muted-rose);
+  font-size: 0.95rem;
+  line-height: 2;
+  font-weight: 300;
+}
+
+.room-gallery {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 7rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2.5rem;
+}
+
+.artwork-image {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-gold);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.artwork-image:hover {
+  transform: scale(1.04) translateY(-5px);
+  border-color: var(--gold-warm);
+  box-shadow: 0 20px 40px rgba(56, 13, 34, 0.6), 0 0 15px var(--gold-glow);
+}
+
+/* ==================== LIGHTBOX ==================== */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  background: rgba(5, 2, 4, 0.95);
+  backdrop-filter: blur(20px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#lightbox.open { display: flex; opacity: 1; }
+
+.lightbox-close {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  font-size: 2.5rem;
+  color: var(--gold-light);
+  transition: var(--transition-bounce);
+}
+
+.lightbox-close:hover {
+  transform: rotate(90deg) scale(1.2);
+  color: var(--rose-accent);
+}
+
+.lightbox-image {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid var(--line-gold);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px var(--gold-glow);
+  animation: zoomIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+/* ==================== CÍRCULO DE ESTRELLAS GIRATORIAS ==================== */
+.stars-orbit-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 320px;
+  margin-top: -160px;
+  margin-left: -160px;
+  pointer-events: none;
+  z-index: 1;
+  animation: rotateOrbit 25s linear infinite;
+}
+
+/* Estilo individual para cada destello/estrella */
+.stars-orbit-container .star {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--gold-light);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--gold-warm), 0 0 20px var(--gold-glow);
+  opacity: 0.7;
+}
+
+/* Posicionamiento en círculo perfecto alrededor del centro */
+.stars-orbit-container .star.s1 { top: 0%; left: 50%; }
+.stars-orbit-container .star.s2 { top: 15%; left: 85%; }
+.stars-orbit-container .star.s3 { top: 85%; left: 85%; }
+.stars-orbit-container .star.s4 { top: 100%; left: 50%; }
+.stars-orbit-container .star.s5 { top: 85%; left: 15%; }
+.stars-orbit-container .star.s6 { top: 15%; left: 15%; }
+
+/* Animación de rotación continua */
+@keyframes rotateOrbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Asegurar que el contenido de texto quede por encima del círculo de estrellas */
+.intro-inner {
+  position: relative;
+  z-index: 2;
+}

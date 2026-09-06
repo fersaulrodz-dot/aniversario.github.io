@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0306">
+    <meta name="description" content="Fernando & Ximena · Nuestro primer año">
+    <title>Fernando & Ximena · Nuestro primer año</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <!-- INTRODUCCIÓN -->
+    <section id="intro">
+        <div class="intro-inner">
+            <span class="intro-label">Una exposición sobre nosotros</span>
+            <div class="intro-date">03 · 10 · 2025</div>
+            <h1 class="intro-names">
+                Fernando
+                <span class="intro-and">&</span>
+                Ximena
+            </h1>
+            <p class="intro-description">
+                Doce meses.<br>
+                Cientos de recuerdos.<br>
+                Una historia que apenas comienza.
+            </p>
+            <button type="button" class="enter-button" id="enterButton">
+                <span class="btn-icon">♫</span>
+                <span>Entrar al museo</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- APLICACIÓN PRINCIPAL -->
+    <main id="app">
+
+        <!-- MÚSICA DE FONDO -->
+        <audio id="music" loop preload="auto">
+            <source src="musica/nuestra-cancion.mp3" type="audio/mpeg">
+            Tu navegador no soporta audio.
+        </audio>
+
+        <div class="music-control">
+            <button type="button" class="music-button" id="musicButton">
+                <span class="music-icon">♫</span>
+                <span id="musicText">Reproducir</span>
+            </button>
+        </div>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-inner">
+                <span class="small-label">Fernando & Ximena</span>
+                <h1 class="hero-title">
+                    <span>Nuestro</span>
+                    <span class="italic">primer año</span>
+                </h1>
+                <p class="hero-description">
+                    Una pequeña colección de los momentos, lugares, aventuras y recuerdos que hicieron especial nuestro primer año juntos.
+                </p>
+                <div class="scroll-hint">
+                    <span>Desliza para comenzar</span>
+                    <div class="scroll-arrow">↓</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENCABEZADO DE LA COLECCIÓN -->
+        <section class="section-header">
+            <span class="small-label">La colección</span>
+            <h2>Doce meses.<br><em>Una historia.</em></h2>
+            <p>Cada punto representa un momento de nuestra historia.<br>Toca un mes para entrar en su propia sala.</p>
+        </section>
+
+        <!-- LÍNEA DEL TIEMPO -->
+        <section class="timeline" id="timeline">
+            <div class="timeline-progress" id="timelineProgress"></div>
+        </section>
+
+        <!-- FINAL DE LA EXPOSICIÓN -->
+        <section class="final">
+            <div class="final-inner">
+                <span class="final-date">03 · 10 · 2026</span>
+                <h2>Un año<br><em>contigo.</em></h2>
+                <div class="final-subtitle">Y apenas estamos comenzando.</div>
+                <div class="final-letter" id="finalLetter"></div>
+                <div class="final-signature" id="finalSignature"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SALA DEL MES -->
+    <section id="room" aria-hidden="true">
+        <button type="button" class="room-close" id="roomCloseBtn">
+            <span>←</span> Volver
+        </button>
+
+        <header class="room-header" id="roomHeader">
+            <div class="room-header-content">
+                <span class="room-number" id="roomNumber"></span>
+                <h2 class="room-title" id="roomTitle"></h2>
+                <div class="room-tag" id="roomTag"></div>
+                <p class="room-story" id="roomStory"></p>
+            </div>
+        </header>
+
+        <div class="room-gallery" id="roomGallery"></div>
+    </section>
+
+    <!-- LIGHTBOX (VISOR DE FOTOS) -->
+    <section id="lightbox" aria-hidden="true">
+        <button type="button" class="lightbox-close" id="lightboxCloseBtn" aria-label="Cerrar fotografía">&times;</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" class="lightbox-image" src="" alt="Fotografía de nuestro recuerdo">
+        </div>
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js" defer></script>
+</body>
+</html>
